@@ -52,7 +52,7 @@ person* del(person* h)
 
 void Print(person* h)
 {
-	printf("%d\n",h->data);
+	cout << h->data << " ";
 }
 
 int main()
@@ -66,6 +66,7 @@ int main()
 		Print(head);
 		head=del(head);
 	}
+	Print(head);
 	delete(head);
 	return 0;
 }
