@@ -59,19 +59,21 @@ int main()
 	cout << "请输入士兵人数:";
 	cin >> n;
 	person* head;
+	
 	for (int x=1;x<=n;x++)
 	{
 		for (int y=1;y<=n;y++)
 		{
 			head=build(n);
 			head=get(head,x);
-			head=head->prev;
+			//Print(head);
 			for (int i=1;i<n;i++)
 			{
 				head=get(head,y);
 				//Print(head);
 				head=del(head);
 			}
+			//cout << endl;
 			if (head->data==1)
 			{
 				cout << "x=" << x << " y=" << y << endl;
