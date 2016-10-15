@@ -11,8 +11,6 @@ struct person
 	person* prev;
 };
 
-int n,x,y;
-
 person* build(int n)
 {
 	person* now=new(person);
@@ -57,16 +55,30 @@ void Print(person* h)
 
 int main()
 {
-	cin >> n >> x >> y;
-	person* head=build(n);
-	head=get(head,x);
-	for (int i=1;i<n;i++)
+	int n;
+	cout << "请输入士兵人数:";
+	cin >> n;
+	person* head;
+	for (int x=1;x<=n;x++)
 	{
-		head=get(head,y);
-		Print(head);
-		head=del(head);
+		for (int y=1;y<=n;y++)
+		{
+			head=build(n);
+			head=get(head,x);
+			head=head->prev;
+			for (int i=1;i<n;i++)
+			{
+				head=get(head,y);
+				//Print(head);
+				head=del(head);
+			}
+			if (head->data==1)
+			{
+				cout << "x=" << x << " y=" << y << endl;
+			}
+			delete(head);
+		}
 	}
-	Print(head);
-	delete(head);
+	
 	return 0;
 }
