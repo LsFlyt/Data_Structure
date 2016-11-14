@@ -110,16 +110,44 @@ int main()
 		}
 		n=ch2.length();
 	}
-	cout << ch2;
+	int pw=0;
+	for (int i=0;i<n;i++)
+	{
+		pw<<=1;
+		pw+=ch2[i]-'0';
+		if (i%8==7)
+		{
+			char o=pw;
+			printf("%c",o);
+			pw=0;
+		}
+	}
 	
 	freopen("output1.txt","r",stdin);
 	freopen("output2.txt","w",stdout);
-	cin >> ch;
+	ch="";
+	while (~scanf("%c",&op))
+	{
+		ch=ch+op;
+	}
 	n=ch.length();
-	int now=root;
+	printf("%d\n",n);
+	ch2="";
 	for (int i=0;i<n;i++)
 	{
-		if (ch[i]=='0')
+		op=0;
+		for (int j=0;j<8;j++)
+		{
+			op+=ch[j]&(1<<(7-j));
+		}
+		ch2=ch2+op;
+	}
+	
+	int now=root;
+	n=ch2.length();
+	for (int i=0;i<n;i++)
+	{
+		if (ch2[i]=='0')
 		{
 			now=d[now].l;
 		}
