@@ -43,8 +43,8 @@ bool cmp(const char_sheet &a,const char_sheet &b)
 
 int main()
 {
-	freopen("input1.txt","r",stdin);
-	freopen("output1.txt","w",stdout);
+	FILE *input1=fopen("input1.txt","r");
+	FILE *output1=fopen("output1.txt","wb");
 	
 	for (int i=0;i<MAXCHAR;i++)
 	{
@@ -56,7 +56,7 @@ int main()
 	
 	string ch="";
 	char op;
-	while (~scanf("%c",&op))
+	while ((op=getc(input1))!=EOF)
 	{
 		d[op].sum++;
 		ch=ch+op;
@@ -92,8 +92,9 @@ int main()
 	{
 		ch2=ch2+s[ch[i]];
 	}
-
+	//cout << ch2 << endl;
 	n=ch2.length();
+
 	if (n%8)
 	{
 		int maxl=0;
@@ -111,6 +112,7 @@ int main()
 		n=ch2.length();
 	}
 	int pw=0;
+	int tot=0;
 	for (int i=0;i<n;i++)
 	{
 		pw<<=1;
@@ -118,33 +120,35 @@ int main()
 		if (i%8==7)
 		{
 			char o=pw;
-			printf("%c",o);
+			fprintf(output1,"%c",o);
 			pw=0;
 		}
 	}
 	
-	freopen("output1.txt","r",stdin);
-	freopen("output2.txt","w",stdout);
+	fclose(input1);
+	fclose(output1);
+	
+	
+	FILE *input2=fopen("output1.txt","rb");
+	FILE *output2=fopen("output2.txt","w");
 	ch="";
-	while (~scanf("%c",&op))
+	while ((op=getc(input2))!=EOF)
 	{
 		ch=ch+op;
 	}
 	n=ch.length();
-	printf("%d\n",n);
 	ch2="";
 	for (int i=0;i<n;i++)
 	{
-		op=0;
 		for (int j=0;j<8;j++)
 		{
-			op+=ch[j]&(1<<(7-j));
+			op=((ch[i]>>(7-j))&1)+'0';
+			ch2=ch2+op;
 		}
-		ch2=ch2+op;
 	}
 	
-	int now=root;
 	n=ch2.length();
+	int now=root;
 	for (int i=0;i<n;i++)
 	{
 		if (ch2[i]=='0')
@@ -157,10 +161,13 @@ int main()
 		}
 		if (d[now].l+d[now].r==0)
 		{
-			printf("%c",d[now].op);
+			fprintf(output2,"%c",d[now].op);
 			now=root;
 		}
 	}
+	
+	fclose(input2);
+	fclose(output2);
 	
 	return 0;
 }
